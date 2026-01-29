@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LeadGen ICP Builder</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>LeadGen AI ICP Builder</h2>
+
+    <form action="/generate_questions" method="POST">
+
+        <label>Enter User Persona</label>
+        <input type="text" name="persona" required placeholder="CEO / Clinic Owner / Marketing Manager">
+
+        <label>Enter Company Type</label>
+        <input type="text" name="industry" required placeholder="Fintech / Dental Clinic / IT Company">
+
+        <button type="submit">Generate ICP Questions</button>
+
+    </form>
+</div>
+
+</body>
+</html>

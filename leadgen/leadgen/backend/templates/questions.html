@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Answer Questions</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Answer these ICP Questions</h2>
+
+    <form action="/submit_answers" method="POST">
+    <input type="hidden" name="persona" value="{{ persona }}">
+    <input type="hidden" name="industry" value="{{ industry }}">
+
+
+    {% for q in questions %}
+        <div class="question">
+            <p><strong>{{ loop.index }}.</strong> {{ q }}</p>
+            <input type="text" name="answer{{ loop.index }}" placeholder="Write answer..." required>
+        </div>
+    {% endfor %}
+
+    <button type="submit">Submit Answers</button>
+</form>
+
+
+</div>
+
+</body>
+</html>

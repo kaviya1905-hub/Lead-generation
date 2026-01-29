@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matched Companies</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Matched Companies</h2>
+
+    {% if companies %}
+    <table>
+        <tr>
+            <th>Company Name</th>
+            <th>City</th>
+            <th>Country</th>
+        </tr>
+
+        {% for c in companies %}
+        <tr>
+            <td>{{ c.company_name }}</td>
+            <td>{{ c.city }}</td>
+            <td>{{ c.country }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% else %}
+    <p>No companies found for this persona/industry.</p>
+    {% endif %}
+
+    <br>
+    <a href="/" class="btn">Search Again</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+
+  redis:
+    image: redis
+    container_name: redis_server
+    ports:
+      - "6379:6379"
+
+  ollama:
+    image: ollama/ollama
+    container_name: ollama_server
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    entrypoint: ["/usr/bin/bash", "-c", "ollama serve"]
+
+  backend:
+    build:
+      context: ./backend            # IMPORTANT
+      dockerfile: Dockerfile
+    container_name: leadgen_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./backend:/app              # Live backend files mapped
+    depends_on:
+      - redis
+      - ollama
+    command: ["python", "app.py"]
+
+  celery:
+    build:
+      context: ./backend            # Build from same backend
+      dockerfile: Dockerfile
+    container_name: leadgen_celery
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - backend
+      - redis
+      - ollama
+    command: ["celery", "-A", "celery_worker.celery_app", "worker", "--pool=solo", "--loglevel=info", "--time-limit=400", "--soft-time-limit=350"]
+
+
+volumes:
+  ollama_data:
