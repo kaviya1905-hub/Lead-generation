@@ -28,7 +28,7 @@ The system uses a **local LLM via Ollama**, an asynchronous task queue with **Ce
 ---
 ##  How to Run the Project
 
-### 1. Clone the Repository
+1. Clone the Repository
 ```bash
 git clone https://github.com/your-username/leadgen.git
 cd leadgen
@@ -36,7 +36,8 @@ cd leadgen
 bash
 Copy code
 docker compose up --build
-This will start:
+
+### This will start:
 Flask backend (localhost:5000)
 Celery worker
 Redis server
